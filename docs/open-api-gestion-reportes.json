@@ -1,0 +1,479 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Franquicias",
+    "description": "API para manejar franquicias, sucursales y productos.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/franquicias": {
+      "get": {
+        "summary": "Obtener todas las franquicias",
+        "responses": {
+          "200": {
+            "description": "Lista de franquicias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Franquicia"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Agregar una nueva franquicia",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Franquicia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Franquicia creada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Franquicia"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/franquicias/{id}": {
+      "get": {
+        "summary": "Obtener una franquicia por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Franquicia encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Franquicia"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Franquicia no encontrada"
+          }
+        }
+      },
+      "put": {
+        "summary": "Modificar una franquicia",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Franquicia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Franquicia actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Franquicia"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Franquicia no encontrada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una franquicia",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Franquicia eliminada"
+          }
+        }
+      }
+    },
+    "/franquicias/{franquiciaId}/sucursales": {
+      "get": {
+        "summary": "Obtener sucursales de una franquicia",
+        "parameters": [
+          {
+            "name": "franquiciaId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de sucursales",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sucursal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Agregar una nueva sucursal a una franquicia",
+        "parameters": [
+          {
+            "name": "franquiciaId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Sucursal"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucursal creada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sucursal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/franquicias/{franquiciaId}/sucursales/{sucursalId}": {
+      "get": {
+        "summary": "Obtener una sucursal por ID",
+        "parameters": [
+          {
+            "name": "franquiciaId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sucursalId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la sucursal",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucursal encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sucursal"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sucursal no encontrada"
+          }
+        }
+      },
+      "put": {
+        "summary": "Modificar una sucursal",
+        "parameters": [
+          {
+            "name": "franquiciaId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la franquicia",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sucursalId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la sucursal",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Sucursal"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucursal actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sucursal"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sucursal no encontrada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una sucursal",
+        "parameters": [
+          {
+            "name": "sucursalId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la sucursal",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Sucursal eliminada"
+          }
+        }
+      }
+    },
+    "/sucursales/{sucursalId}/productos": {
+      "post": {
+        "summary": "Agregar un nuevo producto a una sucursal",
+        "parameters": [
+          {
+            "name": "sucursalId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la sucursal",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Producto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Producto creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Producto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sucursales/{sucursalId}/productos/{productoId}": {
+      "put": {
+        "summary": "Modificar un producto",
+        "parameters": [
+          {
+            "name": "productoId",
+            "in": "path",
+            "required": true,
+            "description": "ID del producto",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Producto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Producto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          }
+        },
+        "delete": {
+          "summary": "Eliminar un producto",
+          "parameters": [
+            {
+              "name": "productoId",
+              "in": "path",
+              "required": true,
+              "description": "ID del producto",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Producto eliminado"
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Franquicia": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "sucursales": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sucursal"
+            }
+          }
+        }
+      },
+      "Sucursal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "franquicia": {
+            "$ref": "#/components/schemas/Franquicia"
+          },
+          "productos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Producto"
+            }
+          }
+        }
+      },
+      "Producto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer"
+          },
+          "sucursal": {
+            "$ref": "#/components/schemas/Sucursal"
+          }
+        }
+      }
+    }
+  }
+}
